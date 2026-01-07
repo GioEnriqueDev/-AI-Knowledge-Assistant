@@ -23,7 +23,7 @@ A production-ready backend system that enables intelligent question-answering ba
 
 ### Core Functionality
 - ✅ **Document Upload & Processing**: PDF and TXT file support with text extraction
-- ✅ **RAG Implementation**: FAISS vector store with OpenAI embeddings for semantic search
+- ✅ **RAG Implementation**: FAISS vector store with Ollama (Llama 3.2 & Nomic-Embed-Text) embeddings for semantic search
 - ✅ **Intelligent Chat**: Context-aware responses using GPT-4 with anti-hallucination prompts
 - ✅ **Chat History**: Persistent conversation storage with source tracking
 
