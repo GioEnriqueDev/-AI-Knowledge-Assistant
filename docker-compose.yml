@@ -1,0 +1,80 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: ai_knowledge_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ai_knowledge_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ai_knowledge_network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: ai_knowledge_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ai_knowledge_network
+
+  # FastAPI Application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ai_knowledge_app
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/ai_knowledge_db
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_ENABLED: "True"
+      OLLAMA_BASE_URL: http://host.docker.internal:11434
+      OLLAMA_MODEL: llama3.2
+      OLLAMA_EMBEDDING_MODEL: nomic-embed-text
+      OLLAMA_TEMPERATURE: "0.3"
+      OLLAMA_MAX_TOKENS: "1000"
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./app:/app/app
+      - faiss_data:/app
+    networks:
+      - ai_knowledge_network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
+  faiss_data:
+
+
+networks:
+  ai_knowledge_network:
+    driver: bridge

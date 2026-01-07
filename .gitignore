@@ -1,0 +1,165 @@
+# VERITAS PRO - Git Ignore
+# File e directory da NON committare su Git
+
+# ===================================
+# ENVIRONMENT & SECRETS
+# ===================================
+.env
+.env.local
+.env.*.local
+*.key
+secrets/
+credentials/
+
+# ===================================
+# PYTHON
+# ===================================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*$py.class
+
+# Allow __init__.py files
+!__init__.py
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+
+# ===================================
+# STREAMLIT
+# ===================================
+.streamlit/secrets.toml
+.streamlit/config.toml
+
+# ===================================
+# IDE & EDITORS
+# ===================================
+# VSCode
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# ===================================
+# LOGS & DATABASES
+# ===================================
+*.log
+*.sqlite
+*.db
+logs/
+*.sql
+
+# ===================================
+# OS
+# ===================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+
+# ===================================
+# PROJECT SPECIFIC
+# ===================================
+# Data files
+data/
+*.csv
+*.json
+*.parquet
+
+# Models & Checkpoints (ML models, not source code)
+ml_models/
+saved_models/
+checkpoints/
+*.pkl
+*.h5
+*.pt
+*.pth
+
+# Temporary files
+temp/
+tmp/
+cache/
+.cache/
+
+# Test coverage
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.pytest_cache/
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# ===================================
+# VERITAS PRO SPECIFIC
+# ===================================
+# Login credentials (NEVER commit!)
+login
+credentials.txt
+
+# Personal notes
+todo
+notes.txt
+
+# FAISS index files (regenerated on deployment)
+faiss_index.bin
+faiss_documents.pkl
+
+# Docker volumes data
+postgres_data/
+redis_data/
+faiss_data/
+
+# Uploaded documents (user data)
+uploads/
+documents/
+*.pdf
+*.txt
+!requirements.txt
+!README.txt
+
